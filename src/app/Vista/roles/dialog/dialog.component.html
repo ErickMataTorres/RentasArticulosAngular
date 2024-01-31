@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Dialog with elements</h1>
+<div mat-dialog-content>
+<form>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="...">
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+    <mat-label>Favorite food</mat-label>
+    <mat-select>
+      @for (rol of rolesOpciones; track rol) {
+        <mat-option [value]="rol.valor">{{rol.vistaValor}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</form>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
