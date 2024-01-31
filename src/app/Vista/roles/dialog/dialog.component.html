@@ -1,15 +1,15 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
+<h1 mat-dialog-title>{{ data.accion }}</h1>
 <div mat-dialog-content>
-<form>
+<form [formGroup]="rolForm">
 
   <mat-form-field class="example-full-width">
     <mat-label>Nombre</mat-label>
-    <input matInput placeholder="...">
+    <input matInput placeholder="..." formControlName="nombre">
   </mat-form-field>
   
   <mat-form-field class="example-full-width">
-    <mat-label>Favorite food</mat-label>
-    <mat-select>
+    <mat-label>Administrador</mat-label>
+    <mat-select formControlName="administrador">
       @for (rol of rolesOpciones; track rol) {
         <mat-option [value]="rol.valor">{{rol.vistaValor}}</mat-option>
       }
@@ -20,5 +20,6 @@
   
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="EjecutarAccion();">{{ data.accion }}</button>
 </div>

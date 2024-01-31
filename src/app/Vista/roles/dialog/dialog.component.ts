@@ -10,14 +10,16 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { Rol } from '../../../Modelo/rol';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { RolesService } from '../../../Controlador/roles/roles.service';
 
 
 const materialModules = [
   MatButtonModule,
   MatInputModule,
   FormsModule,
+  ReactiveFormsModule,
   MatFormFieldModule,
   MatSelectModule
 ];
@@ -40,10 +42,23 @@ export class DialogComponent implements OnInit {
     { vistaValor: "No", valor: "N" },
     { vistaValor: "Si", valor: "S" }
   ]
+
+  rolForm = new FormGroup({
+    id: new FormControl(this.data.rol.id),
+    nombre: new FormControl(this.data.rol.nombre),
+    administrador: new FormControl(this.data.rol.administrador)
+  });
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Rol
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _rolesS:RolesService
   ){}
   ngOnInit(): void {
-      
+    
+  }
+  EjecutarAccion():void{
+    this._rolesS.EjecutarAccion(this.rolForm.value).subscribe(response=>{
+      console.log(response);
+    })
   }
 }

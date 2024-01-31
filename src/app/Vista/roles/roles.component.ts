@@ -53,12 +53,28 @@ export class RolesComponent implements OnInit {
       });
     }
 
-    openDialog(rol: Rol | null) {
+    openDialog(accion:string, rol: Rol) {
       this.dialog.open(DialogComponent,{
         data:{
+          accion,
           rol: rol
         }
       });
+    }
+
+    appendAlert = (message:string, type:string) => {
+      const alertPlaceholder = document.getElementById("liveAlertPlaceholder")!;
+      const idUnico = Date.now().toString() + Math.random().toString();
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert" id="${idUnico}">
+           <div>${message}</div>
+        </div>`
+      ].join('')
+      alertPlaceholder.append(wrapper);
+      setTimeout(()=>{
+        document.getElementById(idUnico)?.remove();
+      },8000);
     }
 
     applyFilter(event: Event) {
