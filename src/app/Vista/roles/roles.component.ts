@@ -54,10 +54,20 @@ export class RolesComponent implements OnInit {
     }
 
     openDialog(accion:string, rol: Rol) {
-      this.dialog.open(DialogComponent,{
+      const dialogRef = this.dialog.open(DialogComponent,{
         data:{
           accion,
           rol: rol
+        },
+        width:"20%",
+        minWidth:"300px"
+      });
+      dialogRef.afterClosed().subscribe(result=>{
+        
+        if(result!==""&&result!==undefined&&result!==null){
+          const type = accion==="Registrar"?"primary": accion === "Modificar" ? "warning" : "danger";        
+          this.appendAlert(result.nombre, type);
+          this.ConsultarRoles();
         }
       });
     }
@@ -68,7 +78,7 @@ export class RolesComponent implements OnInit {
       const wrapper = document.createElement('div')
       wrapper.innerHTML = [
         `<div class="alert alert-${type} alert-dismissible" role="alert" id="${idUnico}">
-           <div>${message}</div>
+           <div class="text-center">${message}</div>
         </div>`
       ].join('')
       alertPlaceholder.append(wrapper);

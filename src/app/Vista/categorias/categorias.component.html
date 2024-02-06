@@ -1,5 +1,5 @@
 <main class="container">
-    <h1>Roles</h1>
+    <h1>Categorías</h1>
 
     <div id="liveAlertPlaceholder"></div>
 
@@ -9,7 +9,7 @@
             <mat-label>Buscar</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="..." #input>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="openDialog('Registrar', {id: 0, nombre: '', administrador: ''} );">Nuevo</button>
+        <button mat-raised-button color="primary" (click)="openDialog('Registrar', {id: 0, nombre: ''} );">Nuevo</button>
     </div>
 
     <div class="mat-elevation-z8">
@@ -19,12 +19,6 @@
             <ng-container matColumnDef="nombre">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
                 <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="administrador">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Administrador </th>
-                <td mat-cell *matCellDef="let row"> {{row.administrador === "N" ? "No" : "Si"}} </td>
             </ng-container>
 
             <ng-container matColumnDef="accion">

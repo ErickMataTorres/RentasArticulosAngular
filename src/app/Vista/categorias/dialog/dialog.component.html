@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{ data.accion }}</h1>
+<div mat-dialog-content>
+<form [formGroup]="categoriaForm">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="..." formControlName="nombre" [readonly]="data.accion==='Borrar'" (keydown)="SoloLetras($event);">
+  </mat-form-field>
+
+  @if(data.accion==="Borrar"){
+    <p class="text-center">¿Estás seguro de borrar la categoría?</p>
+  }
+
+</form>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="EjecutarAccionCategoria();">{{ data.accion }}</button>
+</div>
