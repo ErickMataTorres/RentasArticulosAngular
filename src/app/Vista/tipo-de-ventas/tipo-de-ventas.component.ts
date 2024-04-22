@@ -5,10 +5,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { TipoDePago } from '../../Modelo/tipo-de-pago';
+import { TipoDeVenta } from '../../Modelo/tipo-de-venta';
+import { TipoDeVentasService } from '../../Controlador/tipoDeVentas/tipo-de-ventas.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TipoDePagosService } from '../../Controlador/tipoDePagos/tipo-de-pagos.service';
-import { DialogComponent } from '../tipo-de-pagos/dialog/dialog.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 const materialModules = [
   MatTableModule,
@@ -17,44 +17,45 @@ const materialModules = [
   MatSortModule,
   MatPaginatorModule,
   MatButtonModule
-]
+];
 
 @Component({
-  selector: 'app-tipo-de-pagos',
+  selector: 'app-tipo-de-ventas',
   standalone: true,
   imports: [materialModules],
-  templateUrl: './tipo-de-pagos.component.html',
-  styleUrl: './tipo-de-pagos.component.css'
+  templateUrl: './tipo-de-ventas.component.html',
+  styleUrl: './tipo-de-ventas.component.css'
 })
-export class TipoDePagosComponent implements OnInit{
-
-  displayedColumns: string[] = ['nombre', 'comisionPorcentaje', 'accion'];
-  dataSource!: MatTableDataSource<TipoDePago>;
+export class TipoDeVentasComponent implements OnInit{
+  
+  displayedColumns: string[] = ['nombre', 'accion'];
+  dataSource!: MatTableDataSource<TipoDeVenta>;
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
 
   constructor(
-    private _tipoDePagosS: TipoDePagosService,
+    private _tipoDeVentasS: TipoDeVentasService,
     public dialog: MatDialog
   ){}
+
   ngOnInit(): void {
-    this.ConsultarTipoDePagos();
+      this.ConsultarTipoDeVentas();
   }
 
-  ConsultarTipoDePagos():void{
-    this._tipoDePagosS.ConsultarTipoDePagos().subscribe(response=>{
+  ConsultarTipoDeVentas():void{
+    this._tipoDeVentasS.ConsultarTipoDeVentas().subscribe(response=>{
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.paginator = this.paginator!;
       this.dataSource.sort= this.sort!;
     });
   }
 
-  openDialog(accion:string, tipoDePago: TipoDePago) {
+  openDialog(accion:string, tipoDeVenta: TipoDeVenta) {
     const dialogRef = this.dialog.open(DialogComponent,{
       data:{
         accion,
-        tipoDePago: tipoDePago
+        tipoDeVenta: tipoDeVenta
       },
       width:"20%",
       minWidth:"300px"
@@ -64,7 +65,7 @@ export class TipoDePagosComponent implements OnInit{
       if(result!==""&&result!==undefined&&result!==null){
         const type = accion==="Registrar"?"primary": accion === "Modificar" ? "warning" : "danger";        
         this.appendAlert(result.nombre, type);
-        this.ConsultarTipoDePagos();
+        this.ConsultarTipoDeVentas();
       }
     });
   }

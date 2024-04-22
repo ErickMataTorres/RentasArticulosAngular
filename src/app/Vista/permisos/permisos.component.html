@@ -1,0 +1,40 @@
+<main class="container">
+
+    <h1>Permisos</h1>
+
+
+    <mat-form-field class="slcRoles">
+        <mat-label>Roles</mat-label>
+        <mat-select (valueChange)="ActivoInactivo();">
+            @for (rol of roles; track rol) {
+            <mat-option [value]="rol.id">{{rol.nombre}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+
+    <section class="example-section">
+        <span class="example-list-section">
+            <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
+                [indeterminate]="someComplete()" (change)="setAll($event.checked)" [disabled]="inactivo">
+                {{task.name}}
+            </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+            <ul>
+                @for (subtask of task.subtasks; track subtask) {
+                <li>
+                    <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
+                        (ngModelChange)="updateAllComplete()" [disabled]="inactivo">
+                        {{subtask.name}}
+                    </mat-checkbox>
+                </li>
+                }
+            </ul>
+        </span>
+    </section>
+    
+    <button mat-raised-button color="primary" [disabled]="inactivo" (click)="Guardar();">Guardar</button>
+
+
+</main>
