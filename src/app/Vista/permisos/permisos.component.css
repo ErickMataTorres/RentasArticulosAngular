@@ -25,3 +25,7 @@ main{
     list-style-type: none;
     margin-top: 4px;
   }
+
+  #liveAlertPlaceholder{
+    width: 100%;
+  }

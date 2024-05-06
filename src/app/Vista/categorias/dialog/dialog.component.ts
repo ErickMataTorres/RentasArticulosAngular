@@ -9,9 +9,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 const materialModules = [
   MatButtonModule,
   MatInputModule,
-  FormsModule,
-  ReactiveFormsModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
 ];
 
 @Component({
@@ -19,10 +21,8 @@ const materialModules = [
   standalone: true,
   imports: [
     materialModules,
-    MatDialogActions,
-    MatDialogClose,
-    MatDialogContent,
-    MatDialogTitle
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css'
